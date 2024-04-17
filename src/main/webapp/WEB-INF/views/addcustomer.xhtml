@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h3>New Customer</h3>
+    </ui:define>
+    <ui:include src="/WEB-INF/layout/alert.xhtml"/>
+    <ui:define name="content">
+        <form id="form" action="#{mvc.basePath}/customers/new" method="post">
+            <input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Customer Name</label><br/>
+                <small class="text-danger hidden=${not empty errors.name}">${errors.name}</small>
+                <input id="name" type="text" name="name" class="form-control" aria-describedby="nameHelp" value="#{form.name}"/>
+                <div id="nameHelp" class="form-text">A name/names you want to be referred with.</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label> <br/>
+                <small class="text-danger hidden=${not empty errors.email}">${errors.email}</small>
+                <input id="email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="#{form.email}"/>
+                <div id="emailHelp" class="form-text">We won't share your email with anyone.</div>
+            </div>            
+
+            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+        </form>
+    </ui:define>
+</ui:composition>

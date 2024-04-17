@@ -1,0 +1,10 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets">
+    <ui:fragment rendered="${not empty alert.message and not empty alert.type}">
+        <div class="alert alert-${alert.type} alert-dismissible fade show" role="alert">
+            ${alert.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </ui:fragment>
+
+</ui:composition>
