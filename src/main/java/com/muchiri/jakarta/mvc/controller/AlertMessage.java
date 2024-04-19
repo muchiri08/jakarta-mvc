@@ -1,5 +1,6 @@
 package com.muchiri.jakarta.mvc.controller;
 
+import jakarta.inject.Named;
 import jakarta.mvc.RedirectScoped;
 import java.io.Serializable;
 
@@ -7,6 +8,7 @@ import java.io.Serializable;
  *
  * @author muchiri
  */
+@Named("flashMessage")
 @RedirectScoped
 public class AlertMessage implements Serializable {
 
@@ -26,6 +28,11 @@ public class AlertMessage implements Serializable {
         this.code = code;
         this.message = message;
         this.type = type;
+    }
+
+    public void notify(Type type, String message) {
+        this.type = type;
+        this.message = message;
     }
 
     public int getCode() {
