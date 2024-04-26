@@ -2,6 +2,7 @@ package com.muchiri.jakarta.mvc.controller;
 
 import com.muchiri.jakarta.mvc.controller.forms.CustomerForm;
 import com.muchiri.jakarta.mvc.service.CustomerService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
@@ -25,8 +26,9 @@ import java.util.Map;
 @Path("customers")
 @Controller
 @RequestScoped
+@RolesAllowed(value = {"user"})
 public class CustomerController {
-    
+
     @Inject
     private BindingResult validationResult;
     @Inject
@@ -35,19 +37,19 @@ public class CustomerController {
     private AlertMessage alert;
     @Inject
     private CustomerService customerService;
-    
+
     @GET
     @View("customers")
     public void customers() {
     }
-    
+
     @GET
     @Path("new")
     @View("addcustomer")
     public void addCustomerView() {
-        customerService.findAll().stream().forEach(System.out::println);
+        //customerService.findAll().stream().forEach(System.out::println);
     }
-    
+
     @POST
     @Path("new")
     @CsrfProtected
@@ -59,7 +61,7 @@ public class CustomerController {
                 System.out.format("param: %s, message: %s %n", e.getParamName(), e.getMessage());
                 errors.put(e.getParamName(), e.getMessage());
             });
-            
+
             models.put("errors", errors);
             models.put("form", custForm);
             return Response.status(Response.Status.BAD_REQUEST).entity("addcustomer").build();
